@@ -73,65 +73,116 @@
             margin-top: 80px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 80px 0;
+            padding: 80px 0 60px 0;
             text-align: center;
         }
 
         .hero-content {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
+            justify-content: center;
+            gap: 30px;
         }
 
         .hero-image {
-            flex: 1;
-            min-width: 300px;
             display: flex;
             justify-content: center;
+            animation: fadeInDown 1s ease-out;
         }
 
         .hero-image img {
-            width: 300px;
-            height: 300px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 6px solid white;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-text {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            padding: 10px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            opacity: 0.95;
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .btn {
             display: inline-block;
-            padding: 15px 40px;
+            padding: 16px 45px;
             background: white;
             color: #667eea;
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
+            font-size: 18px;
             transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
         }
 
         /* Section Styles */
@@ -380,13 +431,18 @@
                 font-size: 32px;
             }
 
-            .hero p {
+            .hero-subtitle {
                 font-size: 18px;
             }
 
             .hero-image img {
-                width: 250px;
-                height: 250px;
+                width: 220px;
+                height: 220px;
+            }
+
+            .hero-features {
+                font-size: 14px;
+                gap: 15px;
             }
 
             .nav-links {
@@ -425,14 +481,23 @@
                 font-size: 28px;
             }
 
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
             .btn {
-                padding: 12px 30px;
-                font-size: 14px;
+                padding: 14px 35px;
+                font-size: 16px;
             }
 
             .hero-image img {
                 width: 200px;
                 height: 200px;
+            }
+
+            .hero-features {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -458,13 +523,18 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Компьютерный мастер Дмитрий</h1>
-                    <p>Профессиональный ремонт и обслуживание компьютеров с 2010 года</p>
-                    <a href="#contact" class="btn">Заказать услугу</a>
-                </div>
                 <div class="hero-image">
                     <img src="https://i.postimg.cc/KcpH1rgs/2025-10-22-132759102.png" alt="Мастер Дмитрий">
+                </div>
+                <div class="hero-text">
+                    <h1>Компьютерный мастер Дмитрий</h1>
+                    <p class="hero-subtitle">Профессиональный ремонт и обслуживание компьютеров</p>
+                    <div class="hero-features">
+                        <div class="hero-feature">⭐ Опыт с 2010 года</div>
+                        <div class="hero-feature">✓ Гарантия качества</div>
+                        <div class="hero-feature">🚀 Быстрый выезд</div>
+                    </div>
+                    <a href="#contact" class="btn">Заказать услугу</a>
                 </div>
             </div>
         </div>
