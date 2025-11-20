@@ -3,792 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Компьютерный мастер Дмитрий | Ремонт компьютеров и ноутбуков</title>
+    <title>Космическая Миссия</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --accent: #ffeaa7;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: white;
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 0 60px 0;
-            text-align: center;
-        }
-
-        .hero-content {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
+            user-select: none;
         }
 
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            animation: fadeInDown 1s ease-out;
-        }
-
-        .hero-image img {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            border: 8px solid #1e3c72;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 0 12px rgba(30, 60, 114, 0.3);
-            object-fit: cover;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .hero-image img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 12px rgba(30, 60, 114, 0.5);
-        }
-
-        .hero-text {
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #ffffff;
-            text-shadow: 
-                -2px -2px 0 #1e3c72,
-                2px -2px 0 #1e3c72,
-                -2px 2px 0 #1e3c72,
-                2px 2px 0 #1e3c72,
-                0 0 10px rgba(0,0,0,0.3);
-        }
-
-        .hero-subtitle {
-            font-size: 20px;
-            margin-bottom: 30px;
-            font-weight: 400;
-            color: #ffffff;
-            opacity: 0.95;
-        }
-
-        .hero-features {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .hero-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #ffffff;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 45px;
-            background: white;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 18px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 60px 0;
-            background: white;
-        }
-
-        section:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #1e3c72;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        /* Services */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .service-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #667eea;
-        }
-
-        .service-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #1e3c72;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* Works */
-        .works-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .work-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .work-card:hover {
-            transform: scale(1.05);
-        }
-
-        .work-card-content {
-            padding: 25px;
-        }
-
-        .work-card h3 {
-            color: #1e3c72;
-            margin-bottom: 10px;
-            font-size: 22px;
-        }
-
-        .work-tag {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-
-        /* Reviews */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .review-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .review-card:before {
-            content: '"';
-            font-size: 80px;
-            color: #667eea;
-            opacity: 0.2;
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-family: Georgia, serif;
-        }
-
-        .review-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .review-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .review-info h4 {
-            color: #1e3c72;
-            font-size: 18px;
-        }
-
-        .stars {
-            color: #ffc107;
-            font-size: 16px;
-        }
-
-        .review-text {
-            color: #666;
-            line-height: 1.8;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Contact */
-        .contact-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
+        /* Интерфейс */
+        header {
+            width: 100%;
             padding: 15px;
-            background: #f9f9f9;
-            border-radius: 8px;
-            transition: background 0.3s;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            flex-wrap: wrap;
         }
 
-        .contact-item:hover {
-            background: #f0f0f0;
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .contact-icon {
-            font-size: 30px;
-            color: #667eea;
-            min-width: 40px;
+        #timer-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #444;
+            margin-top: 0;
         }
 
-        .contact-item-content h3 {
-            color: #1e3c72;
-            font-size: 18px;
-            margin-bottom: 5px;
+        #timer-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #ffeaa7, #ff7675);
+            transition: width 1s linear;
         }
 
-        .contact-item-content p {
-            color: #666;
+        /* Игровое поле */
+        #game-container {
+            margin: 20px auto;
+            display: grid;
+            gap: 10px;
+            perspective: 1000px;
+            max-width: 95vw;
+            padding: 10px;
         }
 
-        .contact-item-content a {
-            color: #667eea;
-            text-decoration: none;
-        }
-
-        /* Footer */
-        footer {
-            background: #1e3c72;
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
+        /* Карточки */
+        .card {
+            background-color: transparent;
             cursor: pointer;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+            aspect-ratio: 1 / 1;
+            border-radius: 10px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero-subtitle {
-                font-size: 18px;
-            }
-
-            .hero-image img {
-                width: 220px;
-                height: 220px;
-            }
-
-            .hero-features {
-                font-size: 14px;
-                gap: 15px;
-            }
-
-            .nav-links {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                gap: 15px;
-                padding-top: 20px;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav {
-                justify-content: space-between;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            .services-grid,
-            .works-grid,
-            .reviews-grid {
-                grid-template-columns: 1fr;
-            }
+        .card.flipped {
+            transform: rotateY(180deg);
         }
 
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero-subtitle {
-                font-size: 16px;
-            }
-
-            .btn {
-                padding: 14px 35px;
-                font-size: 16px;
-            }
-
-            .hero-image img {
-                width: 200px;
-                height: 200px;
-            }
-
-            .hero-features {
-                flex-direction: column;
-                gap: 10px;
-            }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
+
+        .card-front {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .card-back {
+            background: white;
+            transform: rotateY(180deg);
+            border: 3px solid var(--accent);
+        }
+
+        /* Адаптивность сетки */
+        .grid-2x2 { grid-template-columns: repeat(2, 80px); }
+        .grid-2x3 { grid-template-columns: repeat(3, 80px); }
+        .grid-3x4 { grid-template-columns: repeat(3, 70px); }
+        .grid-4x4 { grid-template-columns: repeat(4, 65px); }
+        .grid-4x5 { grid-template-columns: repeat(4, 60px); }
+
+        @media (min-width: 600px) {
+            .grid-2x2 { grid-template-columns: repeat(2, 120px); }
+            .grid-2x3 { grid-template-columns: repeat(3, 120px); }
+            .grid-3x4 { grid-template-columns: repeat(4, 100px); }
+            .grid-4x4 { grid-template-columns: repeat(4, 100px); }
+            .grid-4x5 { grid-template-columns: repeat(5, 90px); }
+            
+            .card-face { font-size: 3.5rem; }
+        }
+
+        /* Модальные окна */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .modal h2 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: var(--secondary);
+        }
+
+        /* Коллекция подарков */
+        #trophy-room {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: auto;
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        #trophy-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            min-height: 50px;
+        }
+
+        .trophy {
+            font-size: 2rem;
+            background: rgba(255,255,255,0.1);
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        
+        .gift-reveal {
+            font-size: 5rem;
+            margin: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
     </style>
 </head>
 <body>
-    <!-- Header -->
+
+    <div id="timer-bar-container">
+        <div id="timer-bar"></div>
+    </div>
+
     <header>
-        <div class="container">
-            <nav>
-                <div class="logo">💻 Мастер Дмитрий</div>
-                <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#works">Работы</a></li>
-                    <li><a href="#reviews">Отзывы</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-            </nav>
-        </div>
+        <div class="stat-box">Уровень: <span id="level-display">1</span>/10</div>
+        <div class="stat-box">Очки: <span id="score-display">0</span></div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-image">
-                    <img src="https://i.postimg.cc/KcpH1rgs/2025-10-22-132759102.png" alt="Мастер Дмитрий">
-                </div>
-                <div class="hero-text">
-                    <h1>Компьютерный мастер Дмитрий</h1>
-                    <p class="hero-subtitle">Профессиональный ремонт и обслуживание компьютеров</p>
-                    <div class="hero-features">
-                        <div class="hero-feature">⭐ Опыт с 2010 года</div>
-                        <div class="hero-feature">✓ Гарантия качества</div>
-                        <div class="hero-feature">🚀 Быстрый выезд</div>
-                    </div>
-                    <a href="#contact" class="btn">Заказать услугу</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="game-container">
+        <!-- Карточки будут здесь -->
+    </div>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <h2 class="section-title">Мои услуги</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🖥️</div>
-                    <h3>Ремонт компьютеров</h3>
-                    <p>Диагностика и устранение неисправностей настольных компьютеров. Замена комплектующих, модернизация.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">💻</div>
-                    <h3>Ремонт ноутбуков</h3>
-                    <p>Ремонт ноутбуков любой сложности. Замена матрицы, клавиатуры, чистка от пыли, замена термопасты.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">⚙️</div>
-                    <h3>Установка ПО</h3>
-                    <p>Установка и настройка операционных систем, драйверов, программного обеспечения. Активация Windows.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🛡️</div>
-                    <h3>Удаление вирусов</h3>
-                    <p>Комплексная очистка от вирусов и вредоносного ПО. Установка антивирусной защиты.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">💾</div>
-                    <h3>Восстановление данных</h3>
-                    <p>Восстановление утерянных файлов, фотографий, документов с поврежденных накопителей.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🌐</div>
-                    <h3>Настройка сети</h3>
-                    <p>Настройка локальной сети, Wi-Fi роутеров, подключение принтеров и другого оборудования.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="trophy-room">
+        <h3>🏆 Твоя коллекция наград</h3>
+        <div id="trophy-grid">Пока пусто... Пройди уровень!</div>
+    </div>
 
-    <!-- Works Section -->
-    <section id="works">
-        <div class="container">
-            <h2 class="section-title">Примеры выполненных работ</h2>
-            <div class="works-grid">
-                <div class="work-card">
-                    <div class="work-card-content">
-                        <span class="work-tag">Ремонт</span>
-                        <h3>Ремонт игрового ПК</h3>
-                        <p>Диагностика и замена неисправной видеокарты GTX 1660 Ti. Чистка системы охлаждения, замена термопасты. Результат: стабильная работа в играх.</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <div class="work-card-content">
-                        <span class="work-tag">Модернизация</span>
-                        <h3>Апгрейд офисного компьютера</h3>
-                        <p>Увеличение оперативной памяти до 16 ГБ, установка SSD диска 500 ГБ, переустановка Windows 10. Скорость работы увеличилась в 3 раза.</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <div class="work-card-content">
-                        <span class="work-tag">Ноутбук</span>
-                        <h3>Замена матрицы ноутбука</h3>
-                        <p>Замена разбитого экрана на ноутбуке ASUS. Установлена новая IPS-матрица Full HD. Выполнено за 2 часа.</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <div class="work-card-content">
-                        <span class="work-tag">Сеть</span>
-                        <h3>Настройка домашней сети</h3>
-                        <p>Установка и настройка Wi-Fi роутера, создание защищенной сети, настройка IPTV, подключение 5 устройств.</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <div class="work-card-content">
-                        <span class="work-tag">Восстановление</span>
-                        <h3>Восстановление данных</h3>
-                        <p>Восстановлено 350 ГБ важных документов и фотографий с неисправного жесткого диска Seagate 1 ТБ.</p>
-                    </div>
-                </div>
-                <div class="work-card">
-                    <div class="work-card-content">
-                        <span class="work-tag">Чистка</span>
-                        <h3>Профилактика ноутбука</h3>
-                        <p>Полная разборка и чистка ноутбука Lenovo от пыли, замена термопасты. Температура процессора снизилась на 20°C.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Экран старта -->
+    <div id="start-screen" class="modal" style="display: flex;">
+        <h1>🚀 Космическая Миссия</h1>
+        <p>Найди пары одинаковых картинок до того, как закончится время!</p>
+        <p>Собери 10 подарков!</p>
+        <button onclick="startGame()">Начать игру</button>
+    </div>
 
-    <!-- Reviews Section -->
-    <section id="reviews">
-        <div class="container">
-            <h2 class="section-title">Отзывы клиентов</h2>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">АС</div>
-                        <div class="review-info">
-                            <h4>Александр Смирнов</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Отличный мастер! Быстро диагностировал проблему с моим компьютером. Оказалось, что вышел из строя блок питания. Дмитрий не только заменил его, но и проверил все остальные компоненты. Работает идеально! Рекомендую!</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">МК</div>
-                        <div class="review-info">
-                            <h4>Марина Королева</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Спасибо Дмитрию за помощь! Ноутбук очень сильно тормозил, думала придется покупать новый. Дмитрий установил SSD, добавил памяти и переустановил систему. Теперь работает как новый! Цена приятно удивила.</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">ИП</div>
-                        <div class="review-info">
-                            <h4>Игорь Петров</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Профессионал своего дела! Восстановил важные данные с неисправного жесткого диска. Думал, что все потеряно, но Дмитрий смог восстановить практически всё. Очень благодарен за работу!</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">ЕВ</div>
-                        <div class="review-info">
-                            <h4>Елена Васильева</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Разбила экран на ноутбуке. Дмитрий заменил матрицу за пару часов. Работа выполнена аккуратно, все объяснил и показал. Цены адекватные, работает качественно. Буду обращаться еще!</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">ДН</div>
-                        <div class="review-info">
-                            <h4>Дмитрий Новиков</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Настраивал домашнюю сеть и подключал все устройства. Всё работает стабильно, интернет летает! Дмитрий всё подробно объяснил, как пользоваться роутером. Отличный специалист!</p>
-                </div>
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">ОЛ</div>
-                        <div class="review-info">
-                            <h4>Ольга Лебедева</h4>
-                            <div class="stars">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="review-text">Компьютер был заражен вирусами, постоянно выскакивала реклама. Дмитрий всё почистил, установил антивирус, настроил систему. Теперь работает отлично! Спасибо за оперативность и качество!</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Экран победы уровня -->
+    <div id="level-complete-screen" class="modal">
+        <h2>Уровень пройден!</h2>
+        <div class="gift-reveal" id="current-gift">🎁</div>
+        <p>Ты получил новый предмет!</p>
+        <p>Бонус за время: +<span id="time-bonus">0</span></p>
+        <button onclick="nextLevel()">Следующий уровень</button>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">Контакты</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div class="contact-item-content">
-                            <h3>Телефон</h3>
-                            <p><a href="tel:+79991234567">+7 (999) 123-45-67</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div class="contact-item-content">
-                            <h3>Email</h3>
-                            <p><a href="mailto:dmitry.master@mail.ru">dmitry.master@mail.ru</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💬</div>
-                        <div class="contact-item-content">
-                            <h3>Telegram / WhatsApp</h3>
-                            <p><a href="https://t.me/dmitry_master">@dmitry_master</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div class="contact-item-content">
-                            <h3>Режим работы</h3>
-                            <p>Пн-Вс: 9:00 - 21:00</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-item-content">
-                            <h3>Выезд на дом</h3>
-                            <p>По всему городу</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-info" style="display: flex; flex-direction: column; justify-content: center; padding: 40px;">
-                    <h3 style="color: #1e3c72; margin-bottom: 20px; font-size: 24px;">Преимущества работы со мной:</h3>
-                    <ul style="list-style: none; color: #666; line-height: 2;">
-                        <li>✓ Опыт работы более 14 лет</li>
-                        <li>✓ Бесплатная диагностика</li>
-                        <li>✓ Гарантия на все виды работ</li>
-                        <li>✓ Выезд на дом в день обращения</li>
-                        <li>✓ Прозрачные цены</li>
-                        <li>✓ Качественные комплектующие</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Экран проигрыша -->
+    <div id="game-over-screen" class="modal">
+        <h2>Время вышло! 😢</h2>
+        <p>Не сдавайся, попробуй еще раз!</p>
+        <button onclick="restartLevel()">Попробовать снова</button>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Компьютерный мастер Дмитрий. Все права защищены.</p>
-            <p style="margin-top: 10px; font-size: 14px;">Профессиональный ремонт и обслуживание компьютеров</p>
-        </div>
-    </footer>
+    <!-- Экран финала -->
+    <div id="victory-screen" class="modal">
+        <h2>🎉 ПОБЕДА! 🎉</h2>
+        <p>Ты прошел все 10 уровней!</p>
+        <p>Ты настоящий Космический Капитан!</p>
+        <p>Финальный счет: <span id="final-score">0</span></p>
+        <div id="all-trophies" style="font-size: 2rem; margin: 20px;"></div>
+        <button onclick="location.reload()">Начать заново</button>
+    </div>
 
     <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+        // Настройки игры
+        const icons = ['👽', '🚀', '🪐', '☄️', '🛰️', '👾', '🛸', '🌙', '⭐', '🤖', '🔭', '🌍', '☀️', '🔋', '💎'];
+        const gifts = ['🧢', '🎸', '🛹', '🍔', '🎮', '🏆', '🐶', '📱', '🚲', '👑']; // 10 подарков
+
+        const levelsConfig = [
+            { pairs: 2, time: 10, grid: 'grid-2x2' }, // Уровень 1: 4 карты
+            { pairs: 3, time: 15, grid: 'grid-2x3' }, // Уровень 2: 6 карт
+            { pairs: 4, time: 20, grid: 'grid-3x4' }, // Уровень 3: 8 карт (сетка неровная, css поправит)
+            { pairs: 6, time: 30, grid: 'grid-3x4' }, // Уровень 4: 12 карт
+            { pairs: 6, time: 25, grid: 'grid-3x4' }, // Уровень 5: 12 карт, меньше времени
+            { pairs: 8, time: 40, grid: 'grid-4x4' }, // Уровень 6: 16 карт
+            { pairs: 8, time: 35, grid: 'grid-4x4' }, // Уровень 7: 16 карт, быстрее
+            { pairs: 10, time: 50, grid: 'grid-4x5' }, // Уровень 8: 20 карт
+            { pairs: 10, time: 45, grid: 'grid-4x5' }, // Уровень 9: 20 карт, быстрее
+            { pairs: 12, time: 50, grid: 'grid-4x5' } // Уровень 10: Хардкор (если влезет, иначе CSS обрежет)
+            // Для стабильности на мобильных 4x5 это максимум комфорта, поэтому уровни 8-10 меняем только время
+        ];
+
+        // Состояние игры
+        let currentLevel = 0;
+        let score = 0;
+        let timer;
+        let timeLeft;
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        let matchesFound = 0;
+        let gameActive = false;
+        const collectedGifts = [];
+
+        // Элементы DOM
+        const gameContainer = document.getElementById('game-container');
+        const levelDisplay = document.getElementById('level-display');
+        const scoreDisplay = document.getElementById('score-display');
+        const timerBar = document.getElementById('timer-bar');
+        const trophyGrid = document.getElementById('trophy-grid');
+
+        function startGame() {
+            document.getElementById('start-screen').style.display = 'none';
+            loadLevel();
         }
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu after click
-                    document.getElementById('navLinks').classList.remove('active');
-                }
+        function loadLevel() {
+            const config = levelsConfig[currentLevel];
+            levelDisplay.innerText = currentLevel + 1;
+            matchesFound = 0;
+            gameActive = true;
+            
+            // Сброс таймера
+            timeLeft = config.time;
+            updateTimerVisual();
+            startTimer();
+
+            // Генерация карт
+            gameContainer.innerHTML = '';
+            gameContainer.className = config.grid; // Применяем CSS класс для сетки
+
+            // Выбираем иконки для уровня
+            let levelIcons = icons.sort(() => 0.5 - Math.random()).slice(0, config.pairs);
+            // Дублируем их
+            let cards = [...levelIcons, ...levelIcons];
+            // Перемешиваем
+            cards.sort(() => 0.5 - Math.random());
+
+            cards.forEach(icon => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.icon = icon;
+                card.innerHTML = `
+                    <div class="card-face card-front">?</div>
+                    <div class="card-face card-back">${icon}</div>
+                `;
+                card.addEventListener('click', flipCard);
+                gameContainer.appendChild(card);
             });
-        });
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            const totalTime = timeLeft;
+            timer = setInterval(() => {
+                if (!gameActive) return;
+                timeLeft--;
+                updateTimerVisual(totalTime);
+
+                if (timeLeft <= 0) {
+                    gameOver();
+                }
+            }, 1000);
+        }
+
+        function updateTimerVisual(total) {
+            if (!total) total = levelsConfig[currentLevel].time;
+            const percentage = (timeLeft / total) * 100;
+            timerBar.style.width = percentage + '%';
+            
+            // Смена цвета полоски
+            if (percentage > 60) timerBar.style.background = '#00b894';
+            else if (percentage > 30) timerBar.style.background = '#ffeaa7';
+            else timerBar.style.background = '#ff7675';
+        }
+
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+
+            this.classList.add('flipped');
+
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            checkForMatch();
+        }
+
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.icon === secondCard.dataset.icon;
+
+            if (isMatch) {
+                disableCards();
+                matchesFound++;
+                score += 10;
+                scoreDisplay.innerText = score;
+                
+                // Проверка победы на уровне
+                if (matchesFound === levelsConfig[currentLevel].pairs) {
+                    levelComplete();
+                }
+            } else {
+                unflipCards();
+            }
+        }
+
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            resetBoard();
+        }
+
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flipped');
+                secondCard.classList.remove('flipped');
+                resetBoard();
+            }, 1000);
+        }
+
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
+
+        function levelComplete() {
+            clearInterval(timer);
+            gameActive = false;
+            
+            // Бонус за время
+            const bonus = timeLeft * 5;
+            score += bonus;
+            scoreDisplay.innerText = score;
+            
+            // Получение подарка
+            const gift = gifts[currentLevel];
+            collectedGifts.push(gift);
+            updateTrophies();
+
+            // Показ модального окна
+            const modal = document.getElementById('level-complete-screen');
+            document.getElementById('time-bonus').innerText = bonus;
+            document.getElementById('current-gift').innerText = gift;
+            
+            setTimeout(() => {
+                modal.style.display = 'flex';
+            }, 500);
+        }
+
+        function updateTrophies() {
+            trophyGrid.innerHTML = '';
+            collectedGifts.forEach(gift => {
+                const div = document.createElement('div');
+                div.className = 'trophy';
+                div.innerText = gift;
+                trophyGrid.appendChild(div);
+            });
+        }
+
+        function nextLevel() {
+            document.getElementById('level-complete-screen').style.display = 'none';
+            currentLevel++;
+
+            if (currentLevel >= 10) {
+                victory();
+            } else {
+                loadLevel();
+            }
+        }
+
+        function restartLevel() {
+            document.getElementById('game-over-screen').style.display = 'none';
+            score = Math.max(0, score - 20); // Штраф при рестарте
+            scoreDisplay.innerText = score;
+            loadLevel();
+        }
+
+        function gameOver() {
+            clearInterval(timer);
+            gameActive = false;
+            document.getElementById('game-over-screen').style.display = 'flex';
+        }
+
+        function victory() {
+            const victoryScreen = document.getElementById('victory-screen');
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('all-trophies').innerText = collectedGifts.join(' ');
+            victoryScreen.style.display = 'flex';
+        }
     </script>
 </body>
 </html>
