@@ -3,512 +3,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Космическая Академия</title>
+    <title>Галактическое Десятиборье</title>
     <style>
         :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --accent: #ffeaa7;
-            --danger: #ff7675;
-            --success: #00b894;
+            --bg: #1e1e2e;
+            --primary: #f9ca24; /* Желтый */
+            --secondary: #6c5ce7; /* Фиолетовый */
+            --success: #6ab04c; /* Зеленый */
+            --danger: #eb4d4b; /* Красный */
+            --light: #f1f2f6;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at center, #1a1a2e, #16213e, #0f3460);
+            font-family: 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #130f40, #30336b);
             color: white;
             margin: 0;
-            padding: 0;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- Интерфейс --- */
+        /* --- UI HEADER --- */
         header {
             width: 100%;
-            padding: 10px 0;
-            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            z-index: 10;
-        }
-
-        .stat-badge {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        #timer-container {
-            width: 100%;
-            height: 10px;
-            background: #2d3436;
-        }
-
-        #timer-bar {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--accent), var(--danger));
-            transition: width 1s linear;
-        }
-
-        #game-area {
-            flex: 1;
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            position: relative;
-            padding: 20px;
             box-sizing: border-box;
         }
-
-        /* --- Стили для МЕМОРИ --- */
-        .memory-grid {
-            display: grid;
-            gap: 10px;
-            perspective: 1000px;
-        }
-        .card {
-            width: 70px;
-            height: 70px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-            cursor: pointer;
-        }
-        .card.flipped { transform: rotateY(180deg); }
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-        .card-front { background: linear-gradient(135deg, var(--primary), #4834d4); border: 2px solid rgba(255,255,255,0.1); }
-        .card-back { background: white; transform: rotateY(180deg); border: 2px solid var(--accent); }
-
-        /* --- Стили для МАТЕМАТИКИ --- */
-        .math-container {
-            text-align: center;
-            background: rgba(0,0,0,0.4);
-            padding: 30px;
+        .badge {
+            background: rgba(255,255,255,0.15);
+            padding: 5px 15px;
             border-radius: 20px;
-            border: 2px solid var(--secondary);
-            width: 100%;
-            max-width: 400px;
-        }
-        .math-problem {
-            font-size: 3rem;
-            margin-bottom: 20px;
             font-weight: bold;
-            text-shadow: 0 0 10px var(--primary);
         }
-        .math-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .math-btn {
-            background: white;
-            color: var(--primary);
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .math-btn:hover { transform: scale(1.05); background: var(--accent); }
-        .math-btn:active { transform: scale(0.95); }
 
-        /* --- Стили для РЕАКЦИИ (Астероиды) --- */
-        .asteroid-field {
+        #timer-line {
             width: 100%;
-            height: 60vh;
+            height: 8px;
+            background: #2d3436;
             position: relative;
-            overflow: hidden;
-            border: 2px dashed rgba(255,255,255,0.1);
-            border-radius: 15px;
         }
-        .asteroid {
-            position: absolute;
-            font-size: 3rem;
-            cursor: pointer;
-            animation: float 3s infinite ease-in-out;
-            transition: transform 0.1s;
+        #timer-fill {
+            height: 100%;
+            background: var(--success);
+            width: 100%;
+            transition: width 0.2s linear, background 0.5s;
         }
-        .asteroid:active { transform: scale(0.8); }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        /* --- Коллекция и Модальные окна --- */
-        #gift-bar {
-            width: 90%;
+        /* --- ИГРОВАЯ ЗОНА --- */
+        #game-stage {
+            flex: 1;
+            width: 100%;
             max-width: 600px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px 15px 0 0;
-            padding: 10px;
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            min-height: 50px;
-        }
-        .gift-item { font-size: 1.5rem; animation: popIn 0.5s; }
-        
-        .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 12, 41, 0.95);
-            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 100;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
+            position: relative;
+            padding: 10px;
         }
-        .modal h1 { color: var(--accent); margin-bottom: 10px; }
-        .big-gift { font-size: 5rem; margin: 20px; animation: spin 2s infinite linear; }
-        @keyframes spin { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
         
-        button.action-btn {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 15px 40px;
+        .instruction {
             font-size: 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
-            margin-top: 20px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* Адаптив */
-        @media (min-width: 600px) {
-            .card { width: 100px; height: 100px; font-size: 3rem; }
+        /* --- ОБЩИЕ СТИЛИ ДЛЯ УРОВНЕЙ --- */
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #4834d4;
+            transition: transform 0.1s;
+            margin: 5px;
+        }
+        .btn:active { transform: translateY(4px); box-shadow: none; }
+        
+        .grid { display: grid; gap: 10px; justify-content: center; }
+
+        /* Уровень 1: Мемори */
+        .memory-card {
+            width: 70px; height: 70px;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem;
+        }
+        .memory-card.closed { background: var(--secondary); color: transparent; }
+
+        /* Уровень 4: Саймон (Цвета) */
+        .simon-pad {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+        }
+        .simon-btn {
+            width: 100px; height: 100px; border-radius: 15px;
+            opacity: 0.6; cursor: pointer; border: 4px solid transparent;
+        }
+        .simon-btn.active { opacity: 1; transform: scale(0.95); border-color: white; }
+
+        /* Уровень 5: Тайминг */
+        .timing-bar-bg {
+            width: 300px; height: 40px; background: #444; border-radius: 20px; position: relative; overflow: hidden;
+        }
+        .timing-target {
+            position: absolute; top:0; bottom:0; background: rgba(106, 176, 76, 0.5); border: 2px solid var(--success);
+        }
+        .timing-cursor {
+            width: 10px; height: 100%; background: white; position: absolute; left: 0;
+        }
+
+        /* Уровень 6: Анаграмма */
+        .letter-box {
+            display: flex; gap: 10px; margin-bottom: 20px; min-height: 50px;
+        }
+        .letter-slot {
+            width: 40px; height: 40px; border-bottom: 2px solid white; 
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+
+        /* Уровень 10: Мэш (Кликер) */
+        .power-bar {
+            width: 50px; height: 200px; background: #333; border: 4px solid white; border-radius: 10px;
+            position: relative; display: flex; align-items: flex-end;
+        }
+        .power-fill {
+            width: 100%; background: linear-gradient(to top, var(--primary), var(--danger));
+            transition: height 0.1s;
+        }
+
+        /* --- MODALS --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 100;
+            text-align: center;
+        }
+        .gift-anim { font-size: 5rem; animation: bounce 1s infinite; }
+        @keyframes bounce { 0%, 100% {transform:translateY(0);} 50% {transform:translateY(-20px);} }
+
+        /* Footer Inventory */
+        #inventory {
+            height: 60px; width: 100%; background: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center; gap: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div id="timer-container"><div id="timer-bar"></div></div>
+    <div id="timer-line"><div id="timer-fill"></div></div>
 
     <header>
-        <div class="stat-badge">Уровень: <span id="lvl-val">1</span></div>
-        <div class="stat-badge">Счет: <span id="score-val">0</span></div>
+        <div class="badge">Уровень <span id="lvl-disp">1</span>/10</div>
+        <div class="badge">Очки: <span id="score-disp">0</span></div>
     </header>
 
-    <div id="game-area">
-        <!-- Сюда загружается игра -->
+    <div id="game-stage">
+        <!-- Здесь динамически меняется игра -->
     </div>
 
-    <div id="gift-bar">
-        <!-- Сюда падают подарки -->
+    <div id="inventory"></div>
+
+    <!-- ЭКРАНЫ -->
+    <div id="start-screen" class="modal" style="display: flex;">
+        <h1 style="color:var(--primary)">Галактическое Десятиборье 🚀</h1>
+        <p>10 уникальных испытаний.</p>
+        <p>Докажи, что ты готов стать Капитаном!</p>
+        <button class="btn" onclick="game.start()">Начать испытание</button>
     </div>
 
-    <!-- Стартовый экран -->
-    <div id="start-modal" class="modal" style="display: flex;">
-        <h1>Космическая Академия 🚀</h1>
-        <p>Тебя ждут 3 типа испытаний:</p>
-        <ul style="text-align: left; list-style: none; padding: 0; font-size: 1.1rem; line-height: 1.6;">
-            <li>🧠 <b>Мемори</b>: Найди пары</li>
-            <li>🔢 <b>Код доступа</b>: Реши пример</li>
-            <li>☄️ <b>Астероиды</b>: Сбей все цели</li>
-        </ul>
-        <button class="action-btn" onclick="game.start()">Поехали!</button>
+    <div id="level-win-screen" class="modal">
+        <h2>Успех!</h2>
+        <div class="gift-anim" id="win-gift">🎁</div>
+        <p>Ты получил новый модуль!</p>
+        <button class="btn" onclick="game.nextLevel()">Следующий уровень</button>
     </div>
 
-    <!-- Победа на уровне -->
-    <div id="win-modal" class="modal">
-        <h1>Уровень пройден!</h1>
-        <div id="win-gift" class="big-gift">🎁</div>
-        <p id="win-msg">Ты получил новый предмет!</p>
-        <button class="action-btn" onclick="game.nextLevel()">Дальше</button>
+    <div id="game-over-screen" class="modal">
+        <h2 style="color:var(--danger)">Провал...</h2>
+        <p>Попробуй еще раз!</p>
+        <button class="btn" onclick="game.retry()">Рестарт уровня</button>
     </div>
 
-    <!-- Проигрыш -->
-    <div id="lose-modal" class="modal">
-        <h1>Миссия провалена 😞</h1>
-        <p>Время вышло или ответ неверный.</p>
-        <button class="action-btn" onclick="game.retry()">Заново</button>
-    </div>
-
-    <!-- Финал -->
-    <div id="final-modal" class="modal">
-        <h1>🏆 КАПИТАН ГАЛАКТИКИ! 🏆</h1>
-        <p>Ты прошел все 10 уровней!</p>
-        <p>Финальный счет: <span id="final-score"></span></p>
-        <div id="final-collection" style="margin: 20px; font-size: 2rem;"></div>
-        <button class="action-btn" onclick="location.reload()">Играть снова</button>
+    <div id="victory-screen" class="modal">
+        <h1 style="color: gold">🏆 ЛЕГЕНДА КОСМОСА! 🏆</h1>
+        <p>Ты прошел все 10 испытаний!</p>
+        <p>Твой финальный счет: <span id="final-score"></span></p>
+        <button class="btn" onclick="location.reload()">Играть снова</button>
     </div>
 
     <script>
-        const config = {
-            icons: ['👽', '🤖', '🚀', '🪐', '👾', '🛸', '⭐', '🌍', '🔋', '🔭'],
-            gifts: ['🧢', '🕶️', '🛹', '🎮', '🍔', '🎸', '🏆', '📱', '🚲', '👑'],
-            levels: [
-                { type: 'memory', pairs: 2, time: 15, txt: 'Разминка памяти' }, // 1
-                { type: 'math', range: 10, ops: ['+'], time: 10, txt: 'Взломай замок (Сложение)' }, // 2
-                { type: 'reaction', count: 5, time: 8, txt: 'Сбей 5 астероидов!' }, // 3
-                { type: 'memory', pairs: 4, time: 30, txt: 'Больше карт' }, // 4
-                { type: 'math', range: 20, ops: ['-', '+'], time: 15, txt: 'Код сложнее' }, // 5
-                { type: 'reaction', count: 8, time: 10, txt: 'Астероидный дождь!' }, // 6
-                { type: 'memory', pairs: 6, time: 45, txt: 'Сложная память' }, // 7
-                { type: 'math', range: 50, ops: ['+'], time: 10, txt: 'Быстрый счет' }, // 8
-                { type: 'reaction', count: 12, time: 12, txt: 'Гипер-скорость!' }, // 9
-                { type: 'memory', pairs: 8, time: 50, txt: 'ФИНАЛ: Мега-память' }  // 10
-            ]
-        };
-
+        const GIFTS = ['🧩', '🔋', '🔭', '📡', '🕹️', '🛡️', '💊', '🔑', '💎', '👑'];
+        
         const game = {
             level: 0,
             score: 0,
             timer: null,
             timeLeft: 0,
-            active: false,
+            isRunning: false,
             inventory: [],
 
             start() {
-                document.getElementById('start-modal').style.display = 'none';
+                document.getElementById('start-screen').style.display = 'none';
                 this.loadLevel();
             },
 
             loadLevel() {
-                const lvlData = config.levels[this.level];
-                document.getElementById('lvl-val').innerText = this.level + 1;
-                document.getElementById('game-area').innerHTML = ''; // Очистка поля
-                this.active = true;
-                this.startTimer(lvlData.time);
-
-                // Запуск нужного движка игры
-                if (lvlData.type === 'memory') this.initMemory(lvlData);
-                if (lvlData.type === 'math') this.initMath(lvlData);
-                if (lvlData.type === 'reaction') this.initReaction(lvlData);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = ''; // Очистка
+                document.getElementById('lvl-disp').innerText = this.level + 1;
+                
+                this.isRunning = true;
+                
+                // ЗАПУСК ЛОГИКИ КОНКРЕТНОГО УРОВНЯ
+                switch(this.level) {
+                    case 0: levels.memory(); break;
+                    case 1: levels.math(); break;
+                    case 2: levels.clicker(); break;
+                    case 3: levels.simon(); break;
+                    case 4: levels.timing(); break;
+                    case 5: levels.anagram(); break;
+                    case 6: levels.oddOneOut(); break;
+                    case 7: levels.counting(); break;
+                    case 8: levels.higherLower(); break;
+                    case 9: levels.mash(); break;
+                }
             },
 
-            startTimer(sec) {
+            startTimer(seconds) {
                 clearInterval(this.timer);
-                this.timeLeft = sec;
-                const maxTime = sec;
+                this.timeLeft = seconds;
+                const maxTime = seconds;
+                const bar = document.getElementById('timer-fill');
                 
-                const updateBar = () => {
-                    const pct = (this.timeLeft / maxTime) * 100;
-                    document.getElementById('timer-bar').style.width = pct + '%';
-                };
-                updateBar();
+                bar.style.width = '100%';
+                bar.style.background = '#6ab04c';
 
                 this.timer = setInterval(() => {
-                    if(!this.active) return;
-                    this.timeLeft--;
-                    updateBar();
-                    if (this.timeLeft <= 0) this.gameOver();
-                }, 1000);
+                    if(!this.isRunning) return;
+                    this.timeLeft -= 0.1;
+                    
+                    const pct = (this.timeLeft / maxTime) * 100;
+                    bar.style.width = pct + '%';
+                    
+                    if(pct < 30) bar.style.background = '#eb4d4b';
+
+                    if (this.timeLeft <= 0) {
+                        this.lose();
+                    }
+                }, 100);
             },
 
             win() {
-                this.active = false;
+                this.isRunning = false;
                 clearInterval(this.timer);
-                this.score += (this.timeLeft * 10) + 100;
-                document.getElementById('score-val').innerText = this.score;
-
-                const gift = config.gifts[this.level];
+                this.score += Math.ceil(this.timeLeft * 10) + 100;
+                document.getElementById('score-disp').innerText = this.score;
+                
+                const gift = GIFTS[this.level];
                 this.inventory.push(gift);
-                this.renderGifts();
+                this.updateInventory();
 
-                const modal = document.getElementById('win-modal');
+                const screen = document.getElementById('level-win-screen');
                 document.getElementById('win-gift').innerText = gift;
-                document.getElementById('win-msg').innerText = `Ты получил: ${gift}`;
-                modal.style.display = 'flex';
+                screen.style.display = 'flex';
             },
 
-            gameOver() {
-                this.active = false;
+            lose() {
+                this.isRunning = false;
                 clearInterval(this.timer);
-                document.getElementById('lose-modal').style.display = 'flex';
+                document.getElementById('game-over-screen').style.display = 'flex';
             },
 
             retry() {
-                document.getElementById('lose-modal').style.display = 'none';
-                this.score = Math.max(0, this.score - 50); // Штраф
-                document.getElementById('score-val').innerText = this.score;
+                document.getElementById('game-over-screen').style.display = 'none';
+                this.score = Math.max(0, this.score - 50);
+                document.getElementById('score-disp').innerText = this.score;
                 this.loadLevel();
             },
 
             nextLevel() {
-                document.getElementById('win-modal').style.display = 'none';
+                document.getElementById('level-win-screen').style.display = 'none';
                 this.level++;
-                if (this.level >= config.levels.length) {
-                    this.finalScreen();
+                if (this.level >= 10) {
+                    document.getElementById('final-score').innerText = this.score;
+                    document.getElementById('victory-screen').style.display = 'flex';
                 } else {
                     this.loadLevel();
                 }
             },
 
-            renderGifts() {
-                const bar = document.getElementById('gift-bar');
-                bar.innerHTML = this.inventory.map(g => `<div class="gift-item">${g}</div>`).join('');
-            },
+            updateInventory() {
+                document.getElementById('inventory').innerHTML = this.inventory.map(i => `<span>${i}</span>`).join('');
+            }
+        };
 
-            finalScreen() {
-                document.getElementById('final-score').innerText = this.score;
-                document.getElementById('final-collection').innerText = this.inventory.join(' ');
-                document.getElementById('final-modal').style.display = 'flex';
-            },
-
-            /* --- Движок МЕМОРИ --- */
-            initMemory(data) {
-                const grid = document.createElement('div');
-                grid.className = 'memory-grid';
-                // Адаптив сетки
-                if(data.pairs <= 2) grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
-                else if(data.pairs <= 4) grid.style.gridTemplateColumns = 'repeat(3, auto)';
-                else grid.style.gridTemplateColumns = 'repeat(4, auto)';
-
-                let icons = config.icons.slice(0, data.pairs);
-                let cards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+        // ЛОГИКА УРОВНЕЙ
+        const levels = {
+            // 1. МЕМОРИ (Память)
+            memory() {
+                game.startTimer(20);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `<div class="instruction">Найди пары!</div><div class="grid" style="grid-template-columns:repeat(4, 1fr)" id="mem-grid"></div>`;
                 
-                let flipped = [];
+                const icons = ['🚀','👽','🪐','☄️','🚀','👽','🪐','☄️'].sort(()=>Math.random()-0.5);
+                let opened = [];
                 let matched = 0;
 
-                cards.forEach(icon => {
+                icons.forEach((icon, i) => {
                     const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <div class="card-face card-front">?</div>
-                        <div class="card-face card-back">${icon}</div>
-                    `;
+                    card.className = 'memory-card closed';
+                    card.innerText = icon;
                     card.onclick = () => {
-                        if (!this.active || card.classList.contains('flipped') || flipped.length >= 2) return;
-                        
-                        card.classList.add('flipped');
-                        flipped.push({ el: card, icon: icon });
-
-                        if (flipped.length === 2) {
-                            if (flipped[0].icon === flipped[1].icon) {
+                        if(card.classList.contains('matched') || opened.includes(card)) return;
+                        card.classList.remove('closed');
+                        opened.push(card);
+                        if(opened.length === 2) {
+                            if(opened[0].innerText === opened[1].innerText) {
+                                opened.forEach(c => c.classList.add('matched'));
                                 matched++;
-                                flipped = [];
-                                if (matched === data.pairs) this.win();
+                                opened = [];
+                                if(matched === 4) game.win();
                             } else {
                                 setTimeout(() => {
-                                    flipped.forEach(f => f.el.classList.remove('flipped'));
-                                    flipped = [];
-                                }, 800);
+                                    opened.forEach(c => c.classList.add('closed'));
+                                    opened = [];
+                                }, 500);
                             }
                         }
                     };
-                    grid.appendChild(card);
+                    document.getElementById('mem-grid').appendChild(card);
                 });
-                document.getElementById('game-area').appendChild(grid);
             },
 
-            /* --- Движок МАТЕМАТИКИ --- */
-            initMath(data) {
-                const n1 = Math.floor(Math.random() * data.range) + 5;
-                const n2 = Math.floor(Math.random() * data.range) + 1;
-                const op = data.ops[Math.floor(Math.random() * data.ops.length)];
+            // 2. МАТЕМАТИКА (Счет)
+            math() {
+                game.startTimer(15);
+                const n1 = Math.floor(Math.random()*20)+10;
+                const n2 = Math.floor(Math.random()*9)+1;
+                const ans = n1 - n2;
                 
-                let ans = (op === '+') ? n1 + n2 : n1 - n2;
-                
-                // Генерация вариантов ответа
-                let options = new Set([ans]);
-                while(options.size < 4) {
-                    let fake = ans + Math.floor(Math.random() * 10) - 5;
-                    if(fake > 0 && fake !== ans) options.add(fake);
-                }
-                let optionsArr = Array.from(options).sort(() => Math.random() - 0.5);
+                let opts = [ans, ans+1, ans-1, ans+2].sort(()=>Math.random()-0.5);
 
-                const container = document.createElement('div');
-                container.className = 'math-container';
-                container.innerHTML = `
-                    <div style="color: #aaa; margin-bottom:10px">${data.txt}</div>
-                    <div class="math-problem">${n1} ${op} ${n2} = ?</div>
-                    <div class="math-options">
-                        ${optionsArr.map(opt => `<button class="math-btn" onclick="game.checkMath(${opt}, ${ans})">${opt}</button>`).join('')}
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction">Реши пример для доступа к шлюзу:</div>
+                    <h1 style="font-size:3rem; margin:20px">${n1} - ${n2} = ?</h1>
+                    <div class="grid" style="grid-template-columns: 1fr 1fr">
+                        ${opts.map(o => `<button class="btn" onclick="if(${o}==${ans}) game.win(); else game.timeLeft-=5">${o}</button>`).join('')}
                     </div>
                 `;
-                document.getElementById('game-area').appendChild(container);
             },
 
-            checkMath(selected, correct) {
-                if (!this.active) return;
-                if (selected === correct) {
-                    this.win();
-                } else {
-                    // Тряска экрана или красный цвет
-                    const prob = document.querySelector('.math-problem');
-                    prob.style.color = '#ff7675';
-                    setTimeout(() => prob.style.color = 'white', 500);
-                    this.timeLeft -= 3; // Штраф за ошибку
-                }
-            },
-
-            /* --- Движок РЕАКЦИИ (Астероиды) --- */
-            initReaction(data) {
-                const field = document.createElement('div');
-                field.className = 'asteroid-field';
-                let remaining = data.count;
-
-                const spawnAsteroid = () => {
-                    if (!this.active || remaining <= 0) return;
-                    
-                    // Создаем сразу все или по очереди? Сделаем сразу все для простоты
-                };
-
-                for(let i=0; i<data.count; i++) {
-                    const ast = document.createElement('div');
-                    ast.className = 'asteroid';
-                    ast.innerText = ['☄️', '🌑', '🛸'][Math.floor(Math.random()*3)];
-                    
-                    // Случайная позиция
-                    ast.style.top = Math.random() * 80 + '%';
-                    ast.style.left = Math.random() * 80 + '%';
-                    // Разная анимация
-                    ast.style.animationDuration = (2 + Math.random() * 3) + 's';
-
-                    ast.onclick = (e) => {
-                        if(!this.active) return;
-                        e.target.style.transform = 'scale(0) rotate(360deg)';
-                        setTimeout(() => e.target.remove(), 200);
-                        remaining--;
-                        if(remaining === 0) this.win();
-                    };
-                    field.appendChild(ast);
-                }
+            // 3. КЛИКЕР (Реакция)
+            clicker() {
+                game.startTimer(10);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `<div class="instruction">Уничтожь 5 астероидов!</div><div id="space-field" style="width:100%; height:300px; position:relative; border:1px dashed #555"></div>`;
                 
-                // Инструкция
-                const hint = document.createElement('div');
-                hint.style.position = 'absolute';
-                hint.style.bottom = '10px';
-                hint.style.width = '100%';
-                hint.style.textAlign = 'center';
-                hint.style.color = '#aaa';
-                hint.innerText = `Целей осталось: ${remaining}`;
-                field.appendChild(hint);
+                let count = 5;
+                const spawn = () => {
+                    if(count <= 0) return game.win();
+                    const ast = document.createElement('div');
+                    ast.innerText = '🪨';
+                    ast.style.position = 'absolute';
+                    ast.style.fontSize = '3rem';
+                    ast.style.left = Math.random()*80 + '%';
+                    ast.style.top = Math.random()*80 + '%';
+                    ast.style.cursor = 'pointer';
+                    ast.onclick = () => { ast.remove(); count--; spawn(); };
+                    document.getElementById('space-field').appendChild(ast);
+                };
+                spawn();
+            },
 
-                // Обновление счетчика
-                field.addEventListener('click', () => {
-                    hint.innerText = `Целей осталось: ${remaining}`;
-                });
+            // 4. САЙМОН (Последовательность)
+            simon() {
+                game.startTimer(20);
+                const colors = ['#ff7675', '#74b9ff', '#55efc4', '#ffeaa7'];
+                let sequence = [0, 2, 1, 3]; // Хардкодная для простоты, можно рандомить
+                let step = 0;
+                let userTurn = false;
 
-                document.getElementById('game-area').appendChild(field);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction" id="simon-text">Запомни порядок!</div>
+                    <div class="simon-pad">
+                        ${colors.map((c,i) => `<div class="simon-btn" id="sb-${i}" style="background:${c}" onclick="levels.checkSimon(${i})"></div>`).join('')}
+                    </div>
+                `;
+
+                // Показ последовательности
+                let i = 0;
+                const interval = setInterval(() => {
+                    if(i >= sequence.length) {
+                        clearInterval(interval);
+                        document.getElementById('simon-text').innerText = "Повтори!";
+                        userTurn = true;
+                        return;
+                    }
+                    const id = sequence[i];
+                    const btn = document.getElementById(`sb-${id}`);
+                    btn.classList.add('active');
+                    setTimeout(() => btn.classList.remove('active'), 400);
+                    i++;
+                }, 800);
+                
+                levels.checkSimon = (id) => {
+                    if(!userTurn) return;
+                    const btn = document.getElementById(`sb-${id}`);
+                    btn.classList.add('active');
+                    setTimeout(() => btn.classList.remove('active'), 100);
+                    
+                    if(id === sequence[step]) {
+                        step++;
+                        if(step === sequence.length) game.win();
+                    } else {
+                        game.lose();
+                    }
+                }
+            },
+
+            // 5. ТАЙМИНГ (Ловкость)
+            timing() {
+                game.startTimer(10);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction">Останови курсор в зеленой зоне!</div>
+                    <div class="timing-bar-bg">
+                        <div class="timing-target" style="left: 60%; width: 20%"></div>
+                        <div class="timing-cursor" id="t-cursor"></div>
+                    </div>
+                    <button class="btn" style="margin-top:30px; font-size:2rem" onclick="levels.checkTiming()">СТОП</button>
+                `;
+                
+                const cursor = document.getElementById('t-cursor');
+                let pos = 0;
+                let dir = 1;
+                levels.timingInt = setInterval(() => {
+                    pos += 2 * dir;
+                    if(pos > 95 || pos < 0) dir *= -1;
+                    cursor.style.left = pos + '%';
+                }, 16);
+
+                levels.checkTiming = () => {
+                    clearInterval(levels.timingInt);
+                    // Цель от 60 до 80
+                    if(pos >= 60 && pos <= 80) game.win();
+                    else game.lose();
+                }
+            },
+
+            // 6. АНАГРАММА (Слова)
+            anagram() {
+                game.startTimer(30);
+                const word = "САТУРН";
+                const shuffled = word.split('').sort(()=>Math.random()-0.5);
+                let current = "";
+
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction">Собери название планеты</div>
+                    <div class="letter-box" id="l-box"></div>
+                    <div class="grid" style="grid-template-columns:repeat(3, 1fr)">
+                        ${shuffled.map(l => `<button class="btn" onclick="levels.addLetter('${l}', this)">${l}</button>`).join('')}
+                    </div>
+                    <button class="btn" style="background:var(--danger); margin-top:10px" onclick="levels.anagram()">Сброс</button>
+                `;
+
+                levels.addLetter = (l, btn) => {
+                    if(btn.disabled) return;
+                    current += l;
+                    btn.disabled = true;
+                    btn.style.opacity = 0.5;
+                    
+                    const box = document.getElementById('l-box');
+                    const slot = document.createElement('div');
+                    slot.className = 'letter-slot';
+                    slot.innerText = l;
+                    box.appendChild(slot);
+
+                    if(current.length === word.length) {
+                        if(current === word) game.win();
+                        else {
+                            stage.style.animation = 'shake 0.5s';
+                            setTimeout(() => levels.anagram(), 500);
+                        }
+                    }
+                }
+            },
+
+            // 7. НАЙДИ ЛИШНЕЕ (Внимание)
+            oddOneOut() {
+                game.startTimer(15);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `<div class="instruction">Найди робота-шпиона!</div><div class="grid" style="grid-template-columns:repeat(5, 1fr)" id="odd-grid"></div>`;
+                
+                const correct = Math.floor(Math.random() * 20);
+                for(let i=0; i<20; i++) {
+                    const btn = document.createElement('div');
+                    btn.style.fontSize = '2.5rem';
+                    btn.style.cursor = 'pointer';
+                    // Обычный робот vs Шпион
+                    btn.innerText = (i === correct) ? '👾' : '🤖'; 
+                    btn.onclick = () => {
+                        if(i === correct) game.win();
+                        else {
+                            btn.innerText = '❌';
+                            game.timeLeft -= 3;
+                        }
+                    };
+                    document.getElementById('odd-grid').appendChild(btn);
+                }
+            },
+
+            // 8. ПОДСЧЕТ (Внимание)
+            counting() {
+                game.startTimer(20);
+                const starsCount = Math.floor(Math.random() * 5) + 3; // 3-7
+                const moonsCount = Math.floor(Math.random() * 5) + 3; 
+                
+                let items = [];
+                for(let i=0; i<starsCount; i++) items.push('⭐');
+                for(let i=0; i<moonsCount; i++) items.push('🌙');
+                items.sort(()=>Math.random()-0.5);
+
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction">Сколько ЗВЕЗД ⭐ на экране?</div>
+                    <div style="font-size:2rem; letter-spacing:5px; margin:20px; text-align:center; width:80%">${items.join(' ')}</div>
+                    <div class="grid" style="grid-template-columns:repeat(4, 1fr)">
+                        <button class="btn" onclick="levels.checkCount(${starsCount-1})">${starsCount-1}</button>
+                        <button class="btn" onclick="levels.checkCount(${starsCount})">${starsCount}</button>
+                        <button class="btn" onclick="levels.checkCount(${starsCount+1})">${starsCount+1}</button>
+                        <button class="btn" onclick="levels.checkCount(${starsCount+2})">${starsCount+2}</button>
+                    </div>
+                `;
+
+                levels.checkCount = (val) => {
+                    if(val === starsCount) game.win();
+                    else game.lose();
+                }
+            },
+
+            // 9. БОЛЬШЕ-МЕНЬШЕ (Логика)
+            higherLower() {
+                game.startTimer(40);
+                const target = Math.floor(Math.random() * 50) + 1;
+                
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction">Угадай координату (1-50)</div>
+                    <div id="hl-msg" style="font-size:2rem; color:var(--primary); margin:20px">?</div>
+                    <div id="hl-opts" class="grid" style="grid-template-columns:repeat(5, 1fr); max-height:200px; overflow-y:auto"></div>
+                `;
+
+                const grid = document.getElementById('hl-opts');
+                for(let i=1; i<=50; i++) {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn';
+                    btn.style.padding = '10px';
+                    btn.innerText = i;
+                    btn.onclick = () => {
+                        if(i === target) game.win();
+                        else {
+                            btn.disabled = true;
+                            btn.style.opacity = 0.3;
+                            document.getElementById('hl-msg').innerText = i < target ? "Больше!" : "Меньше!";
+                        }
+                    };
+                    grid.appendChild(btn);
+                }
+            },
+
+            // 10. МЭШ (Финальная сила)
+            mash() {
+                game.startTimer(15);
+                const stage = document.getElementById('game-stage');
+                stage.innerHTML = `
+                    <div class="instruction">Жми КРАСНУЮ КНОПКУ, чтобы зарядить лазер!</div>
+                    <div class="power-bar"><div class="power-fill" id="p-fill" style="height:0%"></div></div>
+                    <button class="btn" style="background:var(--danger); width:100px; height:100px; border-radius:50%; margin-top:20px; font-size:1.5rem; border:5px solid white" onclick="levels.powerUp()">🔥</button>
+                `;
+
+                let power = 0;
+                levels.powerUp = () => {
+                    power += 10; // Клик дает энергию
+                    if(power >= 100) game.win();
+                };
+                
+                // Энергия падает сама
+                levels.mashInt = setInterval(() => {
+                    if(!game.isRunning) return clearInterval(levels.mashInt);
+                    if(power > 0) power -= 2; 
+                    document.getElementById('p-fill').style.height = power + '%';
+                }, 100);
             }
         };
     </script>
